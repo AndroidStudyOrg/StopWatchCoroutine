@@ -1,6 +1,7 @@
 package org.shop.stopwatchcor
 
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -19,8 +20,10 @@ class MainActivity : AppCompatActivity() {
 
     // 타이머 객체 선언
     private var timer: Timer? = null
+
     // 현재 시간을 나타내는 변수
     private var currentTime = 0
+
     // 현재 구간 시간을 나타내는 변수
     private var currentIntervalTime = 0
 
@@ -105,9 +108,10 @@ class MainActivity : AppCompatActivity() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
+            gravity = Gravity.CENTER
             textSize = 20f
             text = String.format(
-                "%02d \t\t\t\t\t\t %02d:%02d.%02d \t\t\t\t\t\t %02d:%02d.%02d",
+                "%02d \t\t\t\t\t %02d:%02d.%02d \t\t\t\t\t %02d:%02d.%02d",
                 container.childCount.inc(),
                 intervalMinute,
                 intervalSecond,
@@ -116,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                 second,
                 milliSec
             )
-            setPadding(40, 10, 20, 10)
+            setPadding(0, 10, 0, 10)
         }.let { labTime ->
             container.addView(labTime, 0)
         }
