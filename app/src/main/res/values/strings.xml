@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">StopWatchCor</string>
+    <string name="textLap">구간</string>
+    <string name="textIntervalRec">구간기록</string>
+    <string name="textTotlaTime">전체 시간</string>
+    <string name="textStart">시작</string>
+    <string name="textStop">중지</string>
+    <string name="textReset">초기화</string>
+    <string name="textContinue">계속</string>
+    <string name="textTime">00:00.00</string>
+</resources>
