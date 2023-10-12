@@ -84,6 +84,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startClicked() {
+        /*
+        버튼 상태 업데이트 및 Flag 상태 변경
+         */
         lapFlag = true
         updateView(
             startVisibility = false,
@@ -93,9 +96,15 @@ class MainActivity : AppCompatActivity() {
             continueVisibility = false,
             groupVisibility = true
         )
+        /*
+        타이머 재시작
+         */
         startTimer()
     }
 
+    /**
+     * 레이아웃 컨테이너를 생성한 후 gravity와 size, padding 등을 설정하고 컨테이너에 addView
+     */
     private fun intervalRecClicked() {
         val container = binding.layoutLapTimeContainer
         TextView(this).apply {
@@ -131,6 +140,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun stopClicked() {
+        /*
+        버튼 상태 업데이트 및 Flag 상태 변경
+         */
         lapFlag = false
         updateView(
             startVisibility = false,
@@ -145,6 +157,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun resetClicked() {
+        /*
+        버튼 상태 업데이트 및 Flag 상태 변경
+         */
         lapFlag = false
         updateView(
             startVisibility = true,
@@ -154,6 +169,9 @@ class MainActivity : AppCompatActivity() {
             continueVisibility = false,
             groupVisibility = false
         )
+        /*
+        버튼 및 시간들을 초기 설정으로 초기화
+         */
         with(binding) {
             currentTime = 0
             currentIntervalTime = 0
@@ -165,6 +183,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun continueClicked() {
+        /*
+        버튼 상태 업데이트 및 Flag 상태 변경
+         */
         lapFlag = true
         updateView(
             startVisibility = false,
@@ -174,6 +195,9 @@ class MainActivity : AppCompatActivity() {
             continueVisibility = false,
             groupVisibility = true
         )
+        /*
+        타이머 재시작
+         */
         startTimer()
     }
 
@@ -190,6 +214,7 @@ class MainActivity : AppCompatActivity() {
             val intervalMinute = intervalTime.div(100) / 60
 //            Log.d("time", String.format("%02d:%02d.%02d", minute, second, milliSec))
 
+            // 앞서 계산한 시간을 UI 업데이트
             CoroutineScope(Dispatchers.Main).launch {
                 binding.tvCurrentTime.text =
                     String.format("%02d:%02d.%02d", minute, second, milliSec)
@@ -203,6 +228,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 스톱워치 중지 시 확인 Dialog 함수
     private fun showStopDialog() {
         AlertDialog.Builder(this).apply {
             setMessage("초기화 하시겠습니까?")
@@ -213,10 +239,12 @@ class MainActivity : AppCompatActivity() {
         }.show()
     }
 
+    // 이벤트 발생 시 Toast 메세지 보여주는 함수
     private fun showToastMessage(message: String) {
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 
+    // 버튼 상태 변경 함수
     private fun updateView(
         startVisibility: Boolean,
         intervalRecVisibility: Boolean,
