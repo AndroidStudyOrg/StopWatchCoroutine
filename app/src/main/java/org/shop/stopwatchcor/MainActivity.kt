@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
     // 현재 구간 시간을 나타내는 변수
     private var currentIntervalTime = 0
 
+    // 구간 기록 Flag
+    private var lapFlag = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also {
@@ -42,9 +45,9 @@ class MainActivity : AppCompatActivity() {
             stopVisibility = false,
             resetVisibility = false,
             continueVisibility = false,
-            intervalRecClickable = false,
             groupVisibility = false
         )
+
         with(binding) {
             /**
              * 초기 텍스트뷰 상태 (00:00.00)
@@ -57,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 startClicked()
             }
             btnIntervalRec.setOnClickListener {
-                if (!it.isClickable) {
+                if (!lapFlag) {
                     showToastMessage("스톱워치를 실행해주세요.")
                 } else {
                     intervalRecClicked()
@@ -81,13 +84,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startClicked() {
+        lapFlag = true
         updateView(
             startVisibility = false,
             intervalRecVisibility = true,
             stopVisibility = true,
             resetVisibility = false,
             continueVisibility = false,
-            intervalRecClickable = true,
             groupVisibility = true
         )
         startTimer()
@@ -128,13 +131,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun stopClicked() {
+        lapFlag = false
         updateView(
             startVisibility = false,
             intervalRecVisibility = false,
             stopVisibility = false,
             resetVisibility = true,
             continueVisibility = true,
-            intervalRecClickable = false,
             groupVisibility = true
         )
         timer?.cancel()
@@ -142,13 +145,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun resetClicked() {
+        lapFlag = false
         updateView(
             startVisibility = true,
             intervalRecVisibility = true,
             stopVisibility = false,
             resetVisibility = false,
             continueVisibility = false,
-            intervalRecClickable = false,
             groupVisibility = false
         )
         with(binding) {
@@ -162,13 +165,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun continueClicked() {
+        lapFlag = true
         updateView(
             startVisibility = false,
             intervalRecVisibility = true,
             stopVisibility = true,
             resetVisibility = false,
             continueVisibility = false,
-            intervalRecClickable = true,
             groupVisibility = true
         )
         startTimer()
@@ -220,7 +223,6 @@ class MainActivity : AppCompatActivity() {
         stopVisibility: Boolean,
         resetVisibility: Boolean,
         continueVisibility: Boolean,
-        intervalRecClickable: Boolean,
         groupVisibility: Boolean
     ) {
         with(binding) {
@@ -229,8 +231,6 @@ class MainActivity : AppCompatActivity() {
             btnStop.isVisible = stopVisibility
             btnReset.isVisible = resetVisibility
             btnContinue.isVisible = continueVisibility
-
-            btnIntervalRec.isClickable = intervalRecClickable
             group.isVisible = groupVisibility
         }
     }
